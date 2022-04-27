@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html 
+	xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets" 
+	xmlns:f="http://xmlns.jcp.org/jsf/core" 
+	xmlns:h="http://xmlns.jcp.org/jsf/html">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>Ejemplo DataTable</title>
+</head>
+<body>
+<f:view>
+<h1>Registro</h1>
+	<h:form>
+		<h:panelGrid columns="2">
+				
+					<h:outputLabel value="Nombres:" for="nombre"></h:outputLabel>
+					<h:inputText value="#{tablaBean.miPersona.nombre}" id="nombre" style="width: 150px"></h:inputText>
+					
+					<h:outputLabel value="Apellidos:" for="apellido"></h:outputLabel>
+					<h:inputText value="#{tablaBean.miPersona.apellido}" id="apellido" style="width: 150px"></h:inputText>
+					
+					<h:outputLabel value="Edad:" for="edad"></h:outputLabel>
+					<h:inputText value="#{tablaBean.miPersona.edad}" id="edad" style="width: 150px"></h:inputText>
+					
+					<h:outputLabel value="Profesion:" for="profesion"></h:outputLabel>
+					<h:inputText value="#{tablaBean.miPersona.profesion}" id="profesion" style="width: 150px"></h:inputText>
+					
+					<h:outputLabel value="Salario:" for="salario"></h:outputLabel>
+					<h:inputText value="#{tablaBean.miPersona.salario}" id="salario" style="width: 150px"></h:inputText>
+					
+					<h:outputLabel value="Sexo" for="sexo"></h:outputLabel>
+					<h:selectOneMenu value="#{tablaBean.miPersona.sexo}" style="width: 155px">
+						<f:selectItem itemValue="M" itemLabel="Masculino"></f:selectItem>
+						<f:selectItem itemValue="F" itemLabel="Femenino"></f:selectItem>
+					</h:selectOneMenu>
+		</h:panelGrid>
+		<br></br>
+		<h:commandButton value="Registrar" action="#{tablaBean.agregarPersona()}" style="width: 240px"></h:commandButton>
+		<br></br><br></br>
+		<h:dataTable value="#{tablaBean.listaPersonas}" var="datos" border="4" style="width:500px" rendered="#{tablaBean.listaPersonas.size()>0}">
+			<h:column>
+				<f:facet name="header">Nombre</f:facet>
+				<h:inputText value="#{datos.nombre}" rendered="#{datos.editar}"></h:inputText>
+				<h:outputLabel value="#{datos.nombre}" rendered="#{not datos.editar}"></h:outputLabel>		
+			</h:column>
+			<h:column>
+				<f:facet name="header">Apellido</f:facet>
+				<h:inputText value="#{datos.apellido}" rendered="#{datos.editar}"></h:inputText>
+				<h:outputLabel value="#{datos.apellido}" rendered="#{not datos.editar}"></h:outputLabel>		
+			</h:column>
+			<h:column>
+				<f:facet name="header">Edad</f:facet>
+				<h:inputText value="#{datos.edad}" rendered="#{datos.editar}"></h:inputText>
+				<h:outputLabel value="#{datos.edad}" rendered="#{not datos.editar}"></h:outputLabel>		
+			</h:column>
+			<h:column>
+				<f:facet name="header">Profesion</f:facet>
+				<h:inputText value="#{datos.profesion}" rendered="#{datos.editar}"></h:inputText>
+				<h:outputLabel value="#{datos.profesion}" rendered="#{not datos.editar}"></h:outputLabel>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Salario</f:facet>
+				<h:inputText value="#{datos.salario}" rendered="#{datos.editar}"></h:inputText>
+				<h:outputLabel value="#{datos.salario}" rendered="#{not datos.editar}"></h:outputLabel>		
+			</h:column>
+			<h:column>
+				<f:facet name="header">Sexo</f:facet>
+				<h:selectOneMenu value="#{datos.sexo}" style="width: 155px" rendered="#{datos.editar}">
+						<f:selectItem itemValue="M" itemLabel="Masculino"></f:selectItem>
+						<f:selectItem itemValue="F" itemLabel="Femenino"></f:selectItem>
+					</h:selectOneMenu>
+				<h:outputLabel value="#{datos.sexo}" rendered="#{not datos.editar}"></h:outputLabel>		
+			</h:column>
+			<h:column>
+				<f:facet name="header">Acciones</f:facet>
+				<h:commandLink action="#{tablaBean.editarPersona(datos)}" value="Editar" rendered="#{not datos.editar}"></h:commandLink>,&nbsp;
+				<h:commandLink action="#{tablaBean.guardarPersona()}" value="Guardar" rendered="#{datos.editar}"></h:commandLink>,&nbsp;
+				<h:commandLink action="#{tablaBean.eliminarPersona(datos)}" value="Eliminar" ></h:commandLink>
+			</h:column>
+		</h:dataTable>
+	</h:form>
+</f:view>
+</body>
+</html>
