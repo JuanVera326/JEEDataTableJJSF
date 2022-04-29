@@ -5,16 +5,16 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets" 
 	xmlns:f="http://xmlns.jcp.org/jsf/core" 
 	xmlns:h="http://xmlns.jcp.org/jsf/html">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-<title>Ejemplo DataTable</title>
-</head>
-<body>
+<h:head>
+	<title>Ejemplo DataTable</title>
+	<h:outputStylesheet library="css" name="estilos.css"></h:outputStylesheet>
+</h:head>
+
+<h:body styleClass="body">
 <f:view>
-<h1>Registro</h1>
+<h:outputLabel></h:outputLabel>
 	<h:form>
-		<h:panelGrid columns="2">
-				
+		<h:panelGrid columns="2" >
 					<h:outputLabel value="Nombres:" for="nombre"></h:outputLabel>
 					<h:inputText value="#{tablaBean.miPersona.nombre}" id="nombre" style="width: 150px"></h:inputText>
 					
@@ -37,9 +37,12 @@
 					</h:selectOneMenu>
 		</h:panelGrid>
 		<br></br>
-		<h:commandButton value="Registrar" action="#{tablaBean.agregarPersona()}" style="width: 240px"></h:commandButton>
+		<h:outputLabel value="#{tablaBean.mensaje}" styleClass="anuncio"></h:outputLabel>
+		<br></br>
+		<br></br>
+		<h:commandButton value="Registrar" action="#{tablaBean.agregarPersona()}" styleClass="boton1"></h:commandButton>
 		<br></br><br></br>
-		<h:dataTable value="#{tablaBean.listaPersonas}" var="datos" border="4" style="width:500px" rendered="#{tablaBean.listaPersonas.size()>0}">
+		<h:dataTable value="#{tablaBean.listaPersonas}" var="datos" border="4" style="width:900px; text-align:center;" rendered="#{tablaBean.listaPersonas.size()>0}">
 			<h:column>
 				<f:facet name="header">Nombre</f:facet>
 				<h:inputText value="#{datos.nombre}" rendered="#{datos.editar}"></h:inputText>
@@ -75,12 +78,18 @@
 			</h:column>
 			<h:column>
 				<f:facet name="header">Acciones</f:facet>
-				<h:commandLink action="#{tablaBean.editarPersona(datos)}" value="Editar" rendered="#{not datos.editar}"></h:commandLink>,&nbsp;
-				<h:commandLink action="#{tablaBean.guardarPersona()}" value="Guardar" rendered="#{datos.editar}"></h:commandLink>,&nbsp;
-				<h:commandLink action="#{tablaBean.eliminarPersona(datos)}" value="Eliminar" ></h:commandLink>
+				<h:commandLink action="#{tablaBean.editarPersona(datos)}" rendered="#{not datos.editar}">
+					<h:graphicImage library="images" name="editar.png" style="width:24px; height: 24px;"></h:graphicImage>
+				</h:commandLink>,&nbsp;
+				<h:commandLink action="#{tablaBean.guardarPersona()}" rendered="#{datos.editar}">
+					<h:graphicImage library="images" name="guardar.png" style="width:24px; height: 24px;"></h:graphicImage>
+				</h:commandLink>,&nbsp;
+				<h:commandLink action="#{tablaBean.eliminarPersona(datos)}">
+					<h:graphicImage library="images" name="eliminar.png" style="width:24px; height: 24px;"></h:graphicImage>
+				</h:commandLink>
 			</h:column>
 		</h:dataTable>
 	</h:form>
 </f:view>
-</body>
+</h:body>
 </html>
